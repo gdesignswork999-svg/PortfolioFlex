@@ -1,83 +1,201 @@
- /* Safe Area Support for iOS & Android Notch Devices */
-        :root {
-            --sat: env(safe-area-inset-top, 0px);
-            --sab: env(safe-area-inset-bottom, 0px);
-            --sal: env(safe-area-inset-left, 0px);
-            --sar: env(safe-area-inset-right, 0px);
-        }
+/* Safe Area Support for iOS & Android Notch Devices */
+:root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+}
 
-        body {
-            padding-top: var(--sat);
-            padding-bottom: var(--sab);
-            padding-left: var(--sal);
-            padding-right: var(--sar);
-            background-color: #141414;
-            min-height: 100dvh;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
+body {
+    padding-top: var(--sat);
+    padding-bottom: var(--sab);
+    padding-left: var(--sal);
+    padding-right: var(--sar);
+    background-color: #141414;
+    min-height: 100dvh;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
 
-        /* Custom Scrollbars for macOS & Windows */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #141414;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #E50914;
-        }
+/* Custom Scrollbars for macOS & Windows */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #141414;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #E50914;
+}
 
-        /* Hide horizontal scrollbar cleanly on mobile OS */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
+/* Hide horizontal scrollbar cleanly on mobile OS */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
 
-        /* Netflix Brand Font */
-        .brand-font {
-            font-family: 'Bebas Neue', cursive, sans-serif;
-            letter-spacing: 1.5px;
-        }
+/* Netflix Brand Font */
+.brand-font {
+    font-family: 'Bebas Neue', cursive, sans-serif;
+    letter-spacing: 1.5px;
+}
 
-        /* Poster Card Fluid Hover & Touch Target */
-        .poster-card {
-            transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s ease;
-            will-change: transform;
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .poster-card:hover {
-                transform: scale(1.08) translateY(-6px);
-                z-index: 30;
-                box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.9), 0 0 20px rgba(229, 9, 20, 0.45);
-            }
-        }
-        .poster-card:active {
-            transform: scale(0.97);
-        }
+/* Brand Logo Glow Animation */
+@keyframes logoGlow {
+    0%, 100% { text-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 15px rgba(229, 9, 20, 0.3); }
+    50% { text-shadow: 0 0 18px rgba(229, 9, 20, 0.95), 0 0 30px rgba(229, 9, 20, 0.6); }
+}
+.brand-glow {
+    animation: logoGlow 3s ease-in-out infinite;
+}
 
-        /* Glassmorphism Modals */
-        .glass-modal {
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
+/* Hero Ken Burns Zoom Animation */
+@keyframes heroKenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.06) translate(-1%, -0.8%); }
+    100% { transform: scale(1) translate(0, 0); }
+}
+.hero-bg-animated {
+    animation: heroKenBurns 22s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
 
-        /* Hero Graphic Overlay Effect */
-        .hero-vignette {
-            background: linear-gradient(0deg, #141414 8%, rgba(20,20,20,0.6) 45%, rgba(20,20,20,0.85) 100%);
-        }
+/* Fade In Up Entrance Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        /* Toast Animation */
-        #toast {
-            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s ease;
-        } 
+.animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animation Delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Scroll Reveal Classes */
+.reveal-scroll {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+.reveal-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Poster Card Fluid Hover, Touch Target & Light Reflection Sweep */
+.poster-card {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+}
+.poster-card::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -60%;
+    width: 220%;
+    height: 220%;
+    background: linear-gradient(
+        60deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 65%
+    );
+    transform: rotate(25deg) translateY(-100%);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+    z-index: 20;
+}
+@media (hover: hover) and (pointer: fine) {
+    .poster-card:hover {
+        transform: scale(1.07) translateY(-6px);
+        z-index: 30;
+        box-shadow: 0 14px 32px -5px rgba(0, 0, 0, 0.9), 0 0 22px rgba(229, 9, 20, 0.5);
+        border-color: rgba(229, 9, 20, 0.6) !important;
+    }
+    .poster-card:hover::before {
+        transform: rotate(25deg) translateY(100%);
+    }
+}
+.poster-card:active {
+    transform: scale(0.97);
+}
+
+/* Glassmorphism Modals & Modal Keyframe Animations */
+.glass-modal {
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+@keyframes modalIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95) translateY(15px);
+    }
+}
+
+.animate-fade-in {
+    animation: modalIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-out {
+    animation: modalOut 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hero Graphic Overlay Effect */
+.hero-vignette {
+    background: linear-gradient(0deg, #141414 8%, rgba(20,20,20,0.6) 45%, rgba(20,20,20,0.85) 100%);
+}
+
+/* Pulse Glow CTA Button */
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(229, 9, 20, 0.4); }
+    50% { box-shadow: 0 0 22px rgba(229, 9, 20, 0.85); }
+}
+.btn-pulse {
+    animation: pulseGlow 2.5s infinite;
+}
+
+/* Toast Animation */
+#toast {
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s ease;
+}
